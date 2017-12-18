@@ -1,0 +1,29 @@
+{
+ "children": [
+  {
+   "name": "stock",
+   "hex": "#C73E0C", 
+   "children": [
+    {"name": "Plastbox", "hex": "#FE8152", "value": 3534},
+    {"name": "Azoty", "hex": "#EF5D28", "value": 5731},
+    {"name": "PZU", "hex": "#FF9F7B", "value": 7840}
+   ]
+  },
+  {
+    "name": "cash",
+    "hex": "#016165",
+    "children": [
+     {"name": "USD", "hex": "#017B81", "value": 1000},
+     {"name": "PLN", "hex": "#30A2A7", "value": 10000}
+    ]
+   },
+   {
+    "name": "assets",
+    "hex": "yellow",
+    "children": [
+     {"name": "GOLD", "hex": "gold", "value": 3000},
+     {"name": "SILVER", "hex": "silver", "value": 800}
+    ]
+   }
+ ]
+}
