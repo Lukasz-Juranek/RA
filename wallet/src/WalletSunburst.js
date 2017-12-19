@@ -4,8 +4,7 @@ import {EXTENDED_DISCRETE_COLOR_RANGE} from 'react-vis/dist/theme'
 import {LabelSeries} from 'react-vis';
 import D3FlareData from './d3-flare-example.json';
 
-// import AutoComplete from 'material-ui/AutoComplete';
-// import MenuItem from 'material-ui/MenuItem';
+import store from './store'
 
 const LABEL_STYLE = {
   fontSize: '15px',
@@ -120,7 +119,7 @@ export default class WalletSunburst extends React.Component {
             {
               if (this.state.clicked_item === this.state.pathValue)
               {
-                alert("double click " + this.state.pathValue);
+                store.dispatch({type: "SET_VIEW", payload: "CATEGORY_VIEW"});                
               } 
               this.setState({
                               clicked: !clicked,
