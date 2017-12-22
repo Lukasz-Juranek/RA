@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import 'react-vis/dist/style.css';
 import './App.css'
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {connect} from "react-redux";
 import store from './store';
 
 import CategoryView from './categoryView';
 import MainView from './mainView';
 
+import WalletAppBar from './WalletAppBar'
 
 function DisplayView(displayView) {
   switch (displayView)  
@@ -26,6 +27,11 @@ function DisplayView(displayView) {
     break;
   }
 }
+
+var divStyle = {
+  // width: 400,
+  // height: 400
+};
 
 export default class App extends React.Component {
   state = {
@@ -49,8 +55,11 @@ export default class App extends React.Component {
   render() {
     console.log(this.props);
     return (
-      <div className="App">
-        {DisplayView(this.state.View)}
+      <div style={divStyle} className="App">
+        <MuiThemeProvider>
+          <WalletAppBar> </WalletAppBar>
+          {DisplayView(this.state.View)}
+        </MuiThemeProvider>
       </div>
     );
   }

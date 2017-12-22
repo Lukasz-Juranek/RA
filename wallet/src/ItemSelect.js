@@ -1,7 +1,7 @@
 import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
 import MenuItem from 'material-ui/MenuItem';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye';
 import PersonAdd from 'material-ui/svg-icons/social/person-add';
 import ContentLink from 'material-ui/svg-icons/content/link';
@@ -27,18 +27,26 @@ const dataSource1 = [
     },
   ];
 
+
+  const style = {
+    background: 'white',
+    color: 'white'
+  };
+  
+
 export default class ItemSelect extends React.Component {
     render() {
       return (
-        <div className="App">
-          <MuiThemeProvider>
+        <div className="App"> 
+        {/* <MuiThemeProvider>          */}
           <AutoComplete
-            hintText="add new category"
+            hintText="Name"
             filter={AutoComplete.noFilter}
             dataSource={dataSource1}
             openOnFocus={true}
+            style={style}
           />
-        </MuiThemeProvider>
+          {/* </MuiThemeProvider> */}
         </div>
       );
     }
