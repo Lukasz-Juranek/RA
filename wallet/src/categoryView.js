@@ -11,26 +11,25 @@ import ReactGridLayout from 'react-grid-layout';
 import AddItemDialog from './addItemDialog';
 import Divider from 'material-ui/Divider';
 
-let cash_category = [
-  {name:"Dolar", value:1000},
-  {name:"Polski Złoty", value:300},
-  {name:"Rubelski", value:6300},
-];
+import {walletDB} from './walletDB';
 
 var layout = [
   {i: 'a', x: 0, y: 0, w: 1, h: 1, static: true},
   {i: 'b', x: 1, y: 0, w: 3, h: 1, static: true},
-  {i: 'c', x: 0, y: 1, w: 1, h: 1, static: true}
+  {i: 'c', x: 3, y: 1, w: 3, h: 1, static: true}
 ];
 
-function DisplayView() {
+function DisplayView(disp_cat) {
     let rows = [];
-    cash_category.map ((i) => {
+    walletDB.item
+    .filter((i) => {return i.category === disp_cat})
+    .map ((i) => {
       rows.push(
         <Card>                 
-          <ReactGridLayout className="layout" layout={layout} cols={4} rowHeight={30} width={400}>
+          <ReactGridLayout className="layout" layout={layout} cols={4} rowHeight={30} width={800}>
             <div key="a">{i.name} </div>
-            <div key="b">{i.value}</div>              
+            <div key="b">{i.price} zł</div>
+            <div key="c">{i.quantity} pcs</div>              
           </ReactGridLayout>
           <Divider />
         </Card>
@@ -71,7 +70,7 @@ export default class CategoryView extends React.Component {
     return (
       <div className="App">  
         <AddItemDialog/>
-        {DisplayView()}            
+        {DisplayView("Cash")}            
       </div>
     );
   }

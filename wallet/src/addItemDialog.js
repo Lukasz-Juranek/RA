@@ -6,12 +6,7 @@ import ItemSelect from './ItemSelect';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import store from './store';
-/**
- * Dialog with action buttons. The actions are passed in as an array of React objects,
- * in this example [FlatButtons](/#/components/flat-button).
- *
- * You can also close this dialog by clicking outside the dialog, or with the 'Esc' key.
- */
+
 export default class AddItemDialog extends React.Component {
   constructor(props)
   {

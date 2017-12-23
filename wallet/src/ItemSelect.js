@@ -37,7 +37,7 @@ const dataSource1 = [
 export default class ItemSelect extends React.Component {
     render() {
       return (
-        <div className="App"> 
+        <div> 
         {/* <MuiThemeProvider>          */}
           <AutoComplete
             hintText="Name"

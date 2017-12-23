@@ -3,7 +3,7 @@ import {Sunburst} from 'react-vis';
 import {EXTENDED_DISCRETE_COLOR_RANGE} from 'react-vis/dist/theme'
 import {LabelSeries} from 'react-vis';
 import D3FlareData from './d3-flare-example.json';
-
+import {mapToD3FlareDate} from './walletDB.js'
 import store from './store'
 
 const LABEL_STYLE = {
@@ -68,7 +68,8 @@ function updateData(data, keyPath) {
   return data;
 }
 
-const decoratedData = updateData(D3FlareData, false);
+const decoratedData = updateData(mapToD3FlareDate(), false);
+// const decoratedData = updateData(D3FlareData, false);
 
 export default class WalletSunburst extends React.Component {
   state = {
@@ -84,11 +85,13 @@ export default class WalletSunburst extends React.Component {
     this.setState({finalValue: "total: " + getValue(decoratedData)});    
   }
 
+
+  
   render() {
     const {clicked, data, finalValue, pathValue} = this.state;
     
     return (
-      <div className="basic-sunburst-example-wrapper">
+      <div className="App" >
         {/* <div>{clicked ? 'click to unlock selection' : 'click to lock selection'}</div> */}
         <Sunburst
           animation
@@ -122,9 +125,9 @@ export default class WalletSunburst extends React.Component {
                 store.dispatch({type: "SET_VIEW", payload: "CATEGORY_VIEW"});                
               } 
               this.setState({
-                              clicked: !clicked,
-                              clicked_item: this.state.pathValue
-                            })
+                clicked: !clicked,
+                clicked_item: this.state.pathValue
+              })
             }
           }
             
@@ -137,8 +140,9 @@ export default class WalletSunburst extends React.Component {
           getSize={d => d.value}
           getColor={d => d.hex}
           data={data}
-          height={300}
-          width={350}>
+          height={window.innerHeight * 0.40}
+          width={window.innerWidth * 0.70}
+          >
           {finalValue && <LabelSeries data={[
             {x: 0, y: 0, label: finalValue, style: LABEL_STYLE}
           ]} />}
