@@ -45,6 +45,12 @@ export let walletDB =
         category: "Stock",
         quantity: 15,
         price: 150
+    },
+    {
+        name : "Złoto",
+        category: "Assets",
+        quantity: 1,
+        price: 5000
     }]
 };
 

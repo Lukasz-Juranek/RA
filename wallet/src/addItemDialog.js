@@ -29,14 +29,14 @@ export default class AddItemDialog extends React.Component {
 
   componentWillMount()
   {
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({open : store.getState().windows.item_add});
     }).bind(this);
   }
 
   componentWillUnmount()
   {
-    // store.unsubscribe();
+    this.unsubscribe();
   }
 
 

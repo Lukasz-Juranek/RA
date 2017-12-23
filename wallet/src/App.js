@@ -20,7 +20,7 @@ function DisplayView(displayView) {
     break;
     case ("CATEGORY_VIEW"):
       return (
-          <CategoryView></CategoryView>
+          <CategoryView category={store.getState().active_category}></CategoryView>
       );  
     default : 
       return ;

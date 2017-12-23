@@ -13,7 +13,7 @@ const wallet_reducer = (state = [], action) => {
   return state;
 }
 
-const open_view_reducter = (state = {item_add : false}, action) =>
+const open_window_reducter = (state = {item_add : false}, action) =>
 {
   let new_state = state;
 
@@ -24,13 +24,23 @@ const open_view_reducter = (state = {item_add : false}, action) =>
     default:
       return state;
   }
-
 }
+
+const category_reducer = (state = 'Cash', action) => {
+    switch (action.type) {
+      case 'SET_CATEGORY':
+        return action.payload;
+      default:         
+        return state;
+  }
+}
+
 
 const reducers = combineReducers({
     active_view: view_reducer,
+    active_category: category_reducer,
     wallet: wallet_reducer,
-    windows: open_view_reducter
+    windows: open_window_reducter
 });
 
 export default createStore(reducers,

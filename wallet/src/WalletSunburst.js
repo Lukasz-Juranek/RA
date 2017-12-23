@@ -120,9 +120,12 @@ export default class WalletSunburst extends React.Component {
           })}
           onValueClick={() => 
             {
+              let data = this.state.pathValue.split(' > ');
+              // console.log(data[1]);
               if (this.state.clicked_item === this.state.pathValue)
               {
-                store.dispatch({type: "SET_VIEW", payload: "CATEGORY_VIEW"});                
+                store.dispatch({type: "SET_VIEW", payload: "CATEGORY_VIEW"});
+                store.dispatch({type: "SET_CATEGORY", payload: data[1]});                
               } 
               this.setState({
                 clicked: !clicked,
@@ -132,9 +135,9 @@ export default class WalletSunburst extends React.Component {
           }
             
           style={{
-            stroke: '#ddd',
-            strokeOpacity: 0.3,
-            strokeWidth: '0.5'
+            stroke: 'white',
+            strokeOpacity: 0.8,
+            strokeWidth: '4.5'
           }}
           colorType="literal"
           getSize={d => d.value}

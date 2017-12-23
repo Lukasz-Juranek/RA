@@ -17,9 +17,10 @@ export default class WalletSunbursLegend extends Component {
         orientation="horizontal"
         width={window.innerWidth * 0.70}
         items={mapToGetCategoryName().map((item, key) =>
-          hoveredItem === item ?
-            <div key={key}>{item}<br />{'SELECTED'}</div> :
+          // hoveredItem === item ?
+            // <div key={key}>{item}<br />{'SELECTED'}</div> :
             item
+            
         )}
         />
     );
