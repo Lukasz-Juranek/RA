@@ -56,12 +56,29 @@ export default class AddItemDialog extends React.Component {
   };
 
   handleSubmit = () => {
-    store.dispatch({type: "ADD_ITEM", payload: {
-      name : "Test Kasa",
-      category: "Cash",
-      quantity: 123,
-      price: 46
-  }})
+    switch (store.getState().add_item_window.title)
+    {
+      case "SELL":
+        console.log("SELL" + this.refs.quantity.getValue());
+        store.dispatch({type: "REMOVE", payload: {
+          item_name : this.refs.item_name.getValue(),
+          category_name: this.refs.category_name.getValue(),
+          quantity: this.refs.quantity.getValue(),
+          price: this.refs.price.getValue()
+        }})
+        break;
+      case "BUY":
+        console.log("BUY" + this.refs.quantity.getValue());
+        store.dispatch({type: "ADD_ITEM", payload: {
+          item_name : this.refs.item_name.getValue(),
+          category_name: this.refs.category_name.getValue(),
+          quantity: this.refs.quantity.getValue(),
+          price: this.refs.price.getValue()
+        }})
+        break;
+      default:
+        break;
+    }
     store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
                                   payload: {visible : false}})
   };
@@ -83,7 +100,7 @@ export default class AddItemDialog extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleSubmit}
+        onClick={(this.handleSubmit).bind(this)}
       />,
     ];
 
@@ -97,12 +114,12 @@ export default class AddItemDialog extends React.Component {
           onRequestClose={this.handleClose}
         > 
 
-        <TextField hintText="Category name" defaultValue={this.state.category_name} style={this.tf_style} underlineShow={true} floatingLabelText="Category"
+        <TextField hintText="Category name" ref="category_name" defaultValue={this.state.category_name} style={this.tf_style} underlineShow={true} floatingLabelText="Category"
           floatingLabelFixed={true}/>
 
         {typeof(this.state.item_name) === undefined ? 
           <ItemSelect defaultValue={this.state.item_name}/> :
-          <TextField hintText="Item name" defaultValue={this.state.item_name} style={this.tf_style} underlineShow={true} floatingLabelText="Item name"
+          <TextField hintText="Item name" ref="item_name" defaultValue={this.state.item_name} style={this.tf_style} underlineShow={true} floatingLabelText="Item name"
           floatingLabelFixed={true}/>
         }
 
@@ -112,9 +129,9 @@ export default class AddItemDialog extends React.Component {
           floatingLabelText="Operation date"
           defaultDate={this.state.maxDate}
         />
-        <TextField hintText="Quantity" defaultValue={this.state.quantity} style={this.tf_style} underlineShow={true} floatingLabelText="Quantity"
+        <TextField hintText="Quantity" ref="quantity" defaultValue={this.state.quantity} style={this.tf_style} underlineShow={true} floatingLabelText="Quantity"
       floatingLabelFixed={true}/>
-        <TextField hintText="Price" defaultValue={this.state.price} style={this.tf_style} underlineShow={true} floatingLabelText="Price"
+        <TextField hintText="Price" ref="price" defaultValue={this.state.price} style={this.tf_style} underlineShow={true} floatingLabelText="Price"
       floatingLabelFixed={true} />
         </Dialog>
       </div>

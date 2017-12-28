@@ -1,5 +1,6 @@
 import {walletDB} from './walletDB'
 import { combineReducers ,createStore } from 'redux';
+import { purple50 } from './color_array';
 
 const view_reducer = (state = 'CATEGORY_VIEW', action) => {
     switch (action.type) {
@@ -17,12 +18,55 @@ function copyItem(item){
   return new_item;
 }
 
+function find_existing_cat(category, name)
+{
+  let cat_find = false;
+  for (let i = 0; i < category.length; i++)
+  if (category[i].name == name)
+    cat_find = category[i];
+  return cat_find;
+}
+
+function find_existing_item(item, name)
+{
+  let item_find = false;
+  for (let i = 0; i < item.length; i++)
+  if (item[i].name == name)
+    item_find = item[i];
+  return item_find
+}
+
 const wallet_reducer = (state = walletDB, action) => {
+  console.log("ADD_ITEM action");
+  console.log(action);
+
   switch (action.type) {
     case 'ADD_ITEM':
+
       let category = copyItem(state.category);
-      let item = copyItem(state.item)
-      item.push(action.payload); 
+      let item = copyItem(state.item);
+      // add not existing category
+      if (find_existing_cat(category,action.payload.category_name) === false)
+      {
+        category.push({color: purple50,
+                       name: action.category_name});
+      }
+      // add not existing item
+      let item_find = find_existing_item(item,action.payload.item_name);
+      if (typeof item_find === false)
+      {
+        item.push({  name : action.item_name,
+                     category: action.category_name,
+                     quantity: action.quantity,
+                     price: action.price
+        });
+      } else 
+      {
+        item_find.price = action.payload.price;
+        item_find.quantity = item_find.quantity + action.payload.quantity;
+      }
+ 
+       
       let new_state = 
       {
         ...state,

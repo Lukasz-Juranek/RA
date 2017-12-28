@@ -42,7 +42,6 @@ export default class App extends React.Component {
   {
     store.subscribe(() => {
       let store_state = store.getState();
-      console.log(store_state);
       this.setState({View : store_state.active_view});
     }).bind(this);
   }
