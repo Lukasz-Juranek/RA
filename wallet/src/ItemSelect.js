@@ -35,10 +35,17 @@ const dataSource1 = [
   
 
 export default class ItemSelect extends React.Component {
-    render() {
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      dv : props.defaultValue
+    } 
+  }  
+  
+  render() {
       return (
         <div> 
-        {/* <MuiThemeProvider>          */}
           <AutoComplete
             hintText="Name"
             filter={AutoComplete.noFilter}
@@ -46,7 +53,6 @@ export default class ItemSelect extends React.Component {
             openOnFocus={true}
             style={style}
           />
-          {/* </MuiThemeProvider> */}
         </div>
       );
     }

@@ -30,7 +30,13 @@ export default class AddItemDialog extends React.Component {
   componentWillMount()
   {
     this.unsubscribe = store.subscribe(() => {
-      this.setState({open : store.getState().windows.item_add});
+      this.setState({open : store.getState().add_item_window.visible,
+                     item_name : store.getState().add_item_window.item_name,
+                     category_name : store.getState().add_item_window.category_name, 
+                     quantity : store.getState().add_item_window.quantity,
+                     price : store.getState().add_item_window.price,
+                     title : store.getState().add_item_window.title
+      });
     }).bind(this);
   }
 
@@ -45,11 +51,19 @@ export default class AddItemDialog extends React.Component {
   };
 
   handleClose = () => {
-    store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", payload: false})
+    store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
+                                  payload: {visible : false}})
   };
 
   handleSubmit = () => {
-    store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", payload: false})
+    store.dispatch({type: "ADD_ITEM", payload: {
+      name : "Test Kasa",
+      category: "Cash",
+      quantity: 123,
+      price: 46
+  }})
+    store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
+                                  payload: {visible : false}})
   };
 
   handleChangeMaxDate = (event, date) => {
@@ -76,22 +90,32 @@ export default class AddItemDialog extends React.Component {
     return (
       <div>
         <Dialog
-          title="Add new Item"
+          title={this.state.title}
           actions={actions}
           modal={false}
           open={this.state.open}
           onRequestClose={this.handleClose}
-        >           
-        <ItemSelect/>
+        > 
+
+        <TextField hintText="Category name" defaultValue={this.state.category_name} style={this.tf_style} underlineShow={true} floatingLabelText="Category"
+          floatingLabelFixed={true}/>
+
+        {typeof(this.state.item_name) === undefined ? 
+          <ItemSelect defaultValue={this.state.item_name}/> :
+          <TextField hintText="Item name" defaultValue={this.state.item_name} style={this.tf_style} underlineShow={true} floatingLabelText="Item name"
+          floatingLabelFixed={true}/>
+        }
 
         <DatePicker
           onChange={this.handleChangeMaxDate}
           autoOk={this.state.autoOk}
-          floatingLabelText="Acquire Date"
+          floatingLabelText="Operation date"
           defaultDate={this.state.maxDate}
         />
-        <TextField hintText="Quantity" style={this.tf_style} underlineShow={true} />
-        <TextField hintText="Price" style={this.tf_style} underlineShow={true} />
+        <TextField hintText="Quantity" defaultValue={this.state.quantity} style={this.tf_style} underlineShow={true} floatingLabelText="Quantity"
+      floatingLabelFixed={true}/>
+        <TextField hintText="Price" defaultValue={this.state.price} style={this.tf_style} underlineShow={true} floatingLabelText="Price"
+      floatingLabelFixed={true} />
         </Dialog>
       </div>
     );

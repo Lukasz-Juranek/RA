@@ -3,7 +3,7 @@ import {Sunburst} from 'react-vis';
 import {EXTENDED_DISCRETE_COLOR_RANGE} from 'react-vis/dist/theme'
 import {LabelSeries} from 'react-vis';
 import D3FlareData from './d3-flare-example.json';
-import {mapToD3FlareDate} from './walletDB.js'
+import {mapToD3FlareDate} from './map_store'
 import store from './store'
 
 const LABEL_STYLE = {
@@ -68,8 +68,7 @@ function updateData(data, keyPath) {
   return data;
 }
 
-const decoratedData = updateData(mapToD3FlareDate(), false);
-// const decoratedData = updateData(D3FlareData, false);
+let decoratedData = updateData(mapToD3FlareDate(), false);
 
 export default class WalletSunburst extends React.Component {
   state = {
@@ -82,10 +81,9 @@ export default class WalletSunburst extends React.Component {
 
   componentWillMount()
   {
+    decoratedData = updateData(mapToD3FlareDate(), false);
     this.setState({finalValue: "total: " + getValue(decoratedData)});    
   }
-
-
   
   render() {
     const {clicked, data, finalValue, pathValue} = this.state;

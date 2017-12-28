@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import DiscreteColorLegend from 'react-vis/es/legends/discrete-color-legend';
-import {mapToGetCategoryName, mapToGetCategoryColor, walletDB} from './walletDB';
-
+import {mapToGetCategoryName, mapToGetCategoryColor} from './map_store';
 
 export default class WalletSunbursLegend extends Component {
   state = {

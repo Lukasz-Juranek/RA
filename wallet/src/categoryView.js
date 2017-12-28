@@ -11,8 +11,6 @@ import ReactGridLayout from 'react-grid-layout';
 import AddItemDialog from './addItemDialog';
 import Divider from 'material-ui/Divider';
 
-import {walletDB} from './walletDB';
-
 var layout = [
   {i: 'a', x: 0, y: 0, w: 4, h: 1, static: true},
   {i: 'b', x: 1, y: 1, w: 2, h: 1, static: true},
@@ -31,9 +29,31 @@ const buy_sell_style = {
   display: 'inline'
 }
 
+function buyClickHandle() {
+  store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
+                payload: {visible : true,
+                          item_name : this.name,
+                          category_name : this.category,                          
+                          price : this.price,
+                          title : "BUY"
+  }});
+}
+
+function sellClickHandle() {
+  store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
+                payload: {visible : true,
+                          item_name : this.name,
+                          category_name : this.category,
+                          quantity : this.quantity,
+                          price : this.price,
+                          title : "SELL"
+  }});
+}
+
+
 function DisplayView(disp_cat) {
     let rows = [];
-    walletDB.item
+    store.getState().wallet.item
     .filter((i) => {return i.category === disp_cat})
     .map ((i) => {
       rows.push(
@@ -46,13 +66,13 @@ function DisplayView(disp_cat) {
               style={buy_sell_style}
               label="Buy/"
               primary={true}
-              onClick={() => {;}}
+              onClick = {buyClickHandle.bind(i)} 
             />         
             <FlatButton
               style={buy_sell_style}
               label="Sell"
               primary={true}
-              onClick={() => {;}}
+              onClick={sellClickHandle.bind(i)}
             />         
             </div>     
           </ReactGridLayout>
@@ -95,21 +115,6 @@ export default class CategoryView extends React.Component {
   };
 
   render() {
-    
-    const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.handleClose}
-      />,
-    ];
-
     return (
       <div className="App">  
         <AddItemDialog/>

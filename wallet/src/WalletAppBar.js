@@ -27,7 +27,10 @@ export default class WalletAppBar extends React.Component {
         <Toolbar>
           <ToolbarGroup firstChild={true}>
             <IconButton onClick={() => store.dispatch({type: "SET_VIEW", payload: "MAIN_VIEW"})}><ActionHome /></IconButton>
-            <IconButton onClick={() => store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", payload: true})}><AddItemIcon /></IconButton>
+            <IconButton onClick={() => store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
+                                              payload: {visible : true,
+                                                        title: "Add item"}})}>
+            <AddItemIcon /></IconButton>
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarTitle text="" />
