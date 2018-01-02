@@ -40,7 +40,7 @@ export default class App extends React.Component {
   
   componentWillMount()
   {
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       let store_state = store.getState();
       this.setState({View : store_state.active_view});
     }).bind(this);
@@ -48,7 +48,7 @@ export default class App extends React.Component {
 
   componentWillUnmount()
   {
-    store.unsubscribe();
+    this.unsubscribe();
   }
  
   render() {

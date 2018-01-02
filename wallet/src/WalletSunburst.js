@@ -83,7 +83,18 @@ export default class WalletSunburst extends React.Component {
   {
     decoratedData = updateData(mapToD3FlareDate(), false);
     this.setState({finalValue: "total: " + getValue(decoratedData)});    
+    this.unsubscribe = store.subscribe(() => {
+      decoratedData = updateData(mapToD3FlareDate(), false);
+      this.forceUpdate();
+    }).bind(this);
   }
+
+  componentWillUnmount()
+  {
+    this.unsubscribe();
+  }
+ 
+
   
   render() {
     const {clicked, data, finalValue, pathValue} = this.state;

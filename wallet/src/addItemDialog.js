@@ -60,13 +60,14 @@ export default class AddItemDialog extends React.Component {
     {
       case "SELL":
         console.log("SELL" + this.refs.quantity.getValue());
-        store.dispatch({type: "REMOVE", payload: {
+        store.dispatch({type: "SELL_ITEM", payload: {
           item_name : this.refs.item_name.getValue(),
           category_name: this.refs.category_name.getValue(),
           quantity: this.refs.quantity.getValue(),
           price: this.refs.price.getValue()
         }})
         break;
+      case "Add item":
       case "BUY":
         console.log("BUY" + this.refs.quantity.getValue());
         store.dispatch({type: "ADD_ITEM", payload: {

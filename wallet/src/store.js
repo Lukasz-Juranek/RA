@@ -22,8 +22,12 @@ function find_existing_cat(category, name)
 {
   let cat_find = false;
   for (let i = 0; i < category.length; i++)
-  if (category[i].name == name)
-    cat_find = category[i];
+  {
+    if (category[i].name.trim() == name.trim())
+      {
+        cat_find = category[i];
+      }
+  }
   return cat_find;
 }
 
@@ -31,39 +35,46 @@ function find_existing_item(item, name)
 {
   let item_find = false;
   for (let i = 0; i < item.length; i++)
-  if (item[i].name == name)
-    item_find = item[i];
-  return item_find
+  {
+    if (item[i].name.trim() == name.trim())
+    {
+      item_find = item[i];
+      return item_find;
+    }
+  }
+  return item_find;
 }
 
 const wallet_reducer = (state = walletDB, action) => {
   console.log("ADD_ITEM action");
   console.log(action);
 
+
+  let category = copyItem(state.category);
+  let item = copyItem(state.item);
+
   switch (action.type) {
     case 'ADD_ITEM':
 
-      let category = copyItem(state.category);
-      let item = copyItem(state.item);
       // add not existing category
       if (find_existing_cat(category,action.payload.category_name) === false)
       {
         category.push({color: purple50,
-                       name: action.category_name});
+                       name: action.payload.category_name});
       }
       // add not existing item
       let item_find = find_existing_item(item,action.payload.item_name);
-      if (typeof item_find === false)
+      if (item_find === false)
       {
-        item.push({  name : action.item_name,
-                     category: action.category_name,
-                     quantity: action.quantity,
-                     price: action.price
+        item.push({  name : action.payload.item_name,
+                     category: action.payload.category_name,
+                     quantity: action.payload.quantity,
+                     price: action.payload.price
         });
       } else 
       {
         item_find.price = action.payload.price;
-        item_find.quantity = item_find.quantity + action.payload.quantity;
+        item_find.quantity = item_find.quantity + parseInt(action.payload.quantity);
       }
  
        
@@ -74,6 +85,31 @@ const wallet_reducer = (state = walletDB, action) => {
         item
       }
       return new_state;
+    
+    case 'SELL_ITEM':
+      if (find_existing_cat(category,action.payload.category_name) != false)
+      {
+        let item_find_r = find_existing_item(item,action.payload.item_name);
+        if (item_find_r != false)
+        {
+          item_find_r.price = action.payload.price;
+          item_find_r.quantity = item_find_r.quantity - parseInt(action.payload.quantity);
+          if (item_find_r.quantity <= 0)
+          {
+            let index = item.indexOf(item_find_r);
+            item.splice(index,1);
+          }
+        }
+      }
+
+      let new_state_r = 
+      {
+        ...state,
+        category,
+        item
+      }
+
+    return new_state_r;
     default:         
       return state;
   }

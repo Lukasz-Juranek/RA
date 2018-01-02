@@ -1,6 +1,7 @@
 import React from 'react';
 import ActionHome from 'material-ui/svg-icons/content/undo';
 import AddItemIcon from 'material-ui/svg-icons/content/add-box';
+import SaveStateItem from 'material-ui/svg-icons/action/backup';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -29,8 +30,9 @@ export default class WalletAppBar extends React.Component {
             <IconButton onClick={() => store.dispatch({type: "SET_VIEW", payload: "MAIN_VIEW"})}><ActionHome /></IconButton>
             <IconButton onClick={() => store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
                                               payload: {visible : true,
-                                                        title: "Add item"}})}>
+                                                        title: "Add item"}})}>        
             <AddItemIcon /></IconButton>
+            <IconButton onClick={() => store.dispatch({type: "REDUX_STORAGE_SAVE", payload: store.getState()})}><SaveStateItem /></IconButton>
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarTitle text="" />

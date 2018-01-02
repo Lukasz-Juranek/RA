@@ -15,7 +15,9 @@
     "react-scripts": "1.0.17",
     "react-vis": "^1.8.0",
     "redux": "^3.7.2",
-    "redux-persist": "^5.4.0"
+    "redux-persist": "^5.4.0",
+    "redux-storage": "^4.1.2",
+    "redux-storage-engine-localstorage": "^1.1.4"
   },
   "scripts": {
     "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
