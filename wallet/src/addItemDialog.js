@@ -7,6 +7,23 @@ import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import store from './store';
 
+function submit_button_label(title)
+{
+  switch (title)
+  {
+    case "BUY":
+      return "BUY";
+    case "SELL":
+      return "SELL";
+    case "Add item":
+      return "Add item";
+    default:
+      return "Submit";
+  }
+  
+}
+
+
 export default class AddItemDialog extends React.Component {
   constructor(props)
   {
@@ -44,7 +61,6 @@ export default class AddItemDialog extends React.Component {
   {
     this.unsubscribe();
   }
-
 
   handleOpen = () => {
     this.setState({open: true});
@@ -98,7 +114,7 @@ export default class AddItemDialog extends React.Component {
         onClick={this.handleClose}
       />,
       <FlatButton
-        label="Submit"
+        label={submit_button_label(this.state.title)}
         primary={true}
         keyboardFocused={true}
         onClick={(this.handleSubmit).bind(this)}
@@ -108,7 +124,7 @@ export default class AddItemDialog extends React.Component {
     return (
       <div>
         <Dialog
-          title={this.state.title}
+          // title={this.state.title}
           actions={actions}
           modal={false}
           open={this.state.open}
@@ -130,7 +146,7 @@ export default class AddItemDialog extends React.Component {
           floatingLabelText="Operation date"
           defaultDate={this.state.maxDate}
         />
-        <TextField hintText="Quantity" ref="quantity" defaultValue={this.state.quantity} style={this.tf_style} underlineShow={true} floatingLabelText="Quantity"
+        <TextField  hintText="Quantity" ref="quantity" defaultValue={this.state.quantity} style={this.tf_style} underlineShow={true} floatingLabelText="Quantity"
       floatingLabelFixed={true}/>
         <TextField hintText="Price" ref="price" defaultValue={this.state.price} style={this.tf_style} underlineShow={true} floatingLabelText="Price"
       floatingLabelFixed={true} />

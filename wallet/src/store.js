@@ -142,7 +142,6 @@ const category_reducer = (state = 'Cash', action) => {
   }
 }
 
-
 const reducers = combineReducers({
     active_view: view_reducer,
     active_category: category_reducer,
@@ -150,7 +149,9 @@ const reducers = combineReducers({
     add_item_window: open_window_reducter
 });
 
-export default createStore(reducers,
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+
+export default createStore(reducers,persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 

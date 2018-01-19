@@ -42,6 +42,7 @@ export default class App extends React.Component {
   {
     this.unsubscribe = store.subscribe(() => {
       let store_state = store.getState();
+      localStorage.setItem('reduxState', JSON.stringify(store.getState()))
       this.setState({View : store_state.active_view});
     }).bind(this);
   }

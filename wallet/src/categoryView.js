@@ -53,9 +53,10 @@ function sellClickHandle() {
 
 function DisplayView(disp_cat) {
     let rows = [];
-    store.getState().wallet.item
-    .filter((i) => {return i.category === disp_cat})
-    .map ((i) => {
+    let filtered_cats = store.getState().wallet.item
+    .filter((i) => {return i.category.includes(disp_cat)});
+    if (filtered_cats.length == 0) filtered_cats =  store.getState().wallet.item;
+    filtered_cats.map ((i) => {
       rows.push(
         <Card style={card_style}>                 
           <ReactGridLayout className="layout" layout={layout} cols={6} rowHeight={30} rows={3} width={window.innerWidth > tail_width ? tail_width : window.innerWidth}>
