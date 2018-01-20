@@ -32,6 +32,7 @@ function render_select (_this) {
   </SelectField>);
 }
 
+let backup_data = "";
 
 export default class WalletAppBar extends React.Component {
     constructor(props) {
@@ -43,8 +44,10 @@ export default class WalletAppBar extends React.Component {
     }
   
   componentWillMount(){
+    backup_data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store.getState().wallet));
     this.unsubscribe = store.subscribe(() => {
       this.setState({search_val: store.getState().active_category});
+      backup_data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store.getState().wallet));
     }).bind(this);
   }
 
@@ -55,6 +58,11 @@ export default class WalletAppBar extends React.Component {
 
 
     render() {
+
+     
+      
+      
+
       return (
         <Toolbar>
           <ToolbarGroup firstChild={true}>
@@ -66,10 +74,16 @@ export default class WalletAppBar extends React.Component {
             }}
             ><ActionHome /></IconButton>
             <IconButton tooltip="Add item" onClick={() => store.dispatch({type: "ITEM_ADD_WINDOW_VISIBILITY", 
-                                              payload: {visible : true,
-                                                        title: "Add item"}})}>        
+                                                                          payload: {visible : true,
+                                                                          title: "Add item"}})}>        
             <AddItemIcon /></IconButton>
-            <IconButton tooltip="Save state" onClick={() => store.dispatch({type: "REDUX_STORAGE_SAVE", payload: store.getState()})}><SaveStateItem /></IconButton>
+            
+            <IconButton 
+                download= {'backup.json'}
+                href= {'data:'+backup_data} 
+                tooltip="Backup state"><SaveStateItem />
+            </IconButton>
+            
             <div style={{position: 'relative', display: 'inline-block'}}>
               <SearchIcon style={{position: 'absolute', right: 0, top: 15, width: 20, height: 20}}/>
               {render_select(this)}              
