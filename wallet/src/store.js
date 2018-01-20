@@ -151,7 +151,18 @@ const reducers = combineReducers({
 
 const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
 
-export default createStore(reducers,persistedState,
+let store = createStore(reducers,persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+
+export function category_names_array ()
+{
+  let d = store.getState().wallet.category.map((i)=>
+  {
+    return i.name;
+  });
+  return d;
+}
+
+export default store;
 

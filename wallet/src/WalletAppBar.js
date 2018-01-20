@@ -38,7 +38,7 @@ export default class WalletAppBar extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        select_value: 3,
+        select_value: 0,
         search_val: ""
       };
     }

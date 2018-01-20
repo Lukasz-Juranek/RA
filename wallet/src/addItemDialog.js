@@ -5,7 +5,9 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ItemSelect from './ItemSelect';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 import store from './store';
+import {category_names_array} from './store';
 
 function submit_button_label(title)
 {
@@ -130,9 +132,18 @@ export default class AddItemDialog extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         > 
-
-        <TextField hintText="Category name" ref="category_name" defaultValue={this.state.category_name} style={this.tf_style} underlineShow={true} floatingLabelText="Category"
-          floatingLabelFixed={true}/>
+        <AutoComplete 
+            hintText="Category name" 
+            // ref="category_name" 
+            // defaultValue={this.state.category_name} 
+            filter={AutoComplete.caseInsensitiveFilter}
+            openOnFocus={true}
+            style={this.tf_style} 
+            dataSource={category_names_array()}
+            // underlineShow={true} 
+            // floatingLabelText="Category"
+            // floatingLabelFixed={true}
+          />
 
         {typeof(this.state.item_name) === undefined ? 
           <ItemSelect defaultValue={this.state.item_name}/> :
