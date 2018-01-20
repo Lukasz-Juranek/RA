@@ -7,7 +7,7 @@ import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 import store from './store';
-import {category_names_array} from './store';
+import {category_names_array, items_names_array} from './store';
 
 function submit_button_label(title)
 {
@@ -77,20 +77,20 @@ export default class AddItemDialog extends React.Component {
     switch (store.getState().add_item_window.title)
     {
       case "SELL":
-        console.log("SELL" + this.refs.quantity.getValue());
+        console.log("SELL" + this.state.category_name + this.state.item_name + " : " + this.refs.quantity.getValue());
         store.dispatch({type: "SELL_ITEM", payload: {
-          item_name : this.refs.item_name.getValue(),
-          category_name: this.refs.category_name.getValue(),
+          item_name : this.state.item_name,
+          category_name: this.state.category_name,
           quantity: this.refs.quantity.getValue(),
           price: this.refs.price.getValue()
         }})
         break;
       case "Add item":
       case "BUY":
-        console.log("BUY" + this.refs.quantity.getValue());
-        store.dispatch({type: "ADD_ITEM", payload: {
-          item_name : this.refs.item_name.getValue(),
-          category_name: this.refs.category_name.getValue(),
+        console.log("BUY" + this.state.category_name + this.state.item_name + " : " + this.refs.quantity.getValue());
+         store.dispatch({type: "ADD_ITEM", payload: {
+          item_name : this.state.item_name,
+          category_name: this.state.category_name,
           quantity: this.refs.quantity.getValue(),
           price: this.refs.price.getValue()
         }})
@@ -133,23 +133,31 @@ export default class AddItemDialog extends React.Component {
           onRequestClose={this.handleClose}
         > 
         <AutoComplete 
+            searchText={this.state.category_name}
             hintText="Category name" 
-            // ref="category_name" 
-            // defaultValue={this.state.category_name} 
             filter={AutoComplete.caseInsensitiveFilter}
             openOnFocus={true}
             style={this.tf_style} 
             dataSource={category_names_array()}
+            onUpdateInput={(value)=>{console.log("UUUU");this.setState({category_name: value})}}
             // underlineShow={true} 
             // floatingLabelText="Category"
             // floatingLabelFixed={true}
           />
-
+           <AutoComplete 
+            searchText={this.state.item_name}
+            hintText="Item name" 
+            filter={AutoComplete.caseInsensitiveFilter}
+            style={this.tf_style} 
+            dataSource={items_names_array()}
+            onUpdateInput={(value)=>{this.setState({item_name: value})}} 
+            />
+{/* 
         {typeof(this.state.item_name) === undefined ? 
           <ItemSelect defaultValue={this.state.item_name}/> :
           <TextField hintText="Item name" ref="item_name" defaultValue={this.state.item_name} style={this.tf_style} underlineShow={true} floatingLabelText="Item name"
           floatingLabelFixed={true}/>
-        }
+        } */}
 
         <DatePicker
           onChange={this.handleChangeMaxDate}

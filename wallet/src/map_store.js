@@ -15,9 +15,14 @@ export function mapToD3FlareDate()
         walletDB.item
             .filter((i) => {return i.category === c.name})
             .map((i,index) => {
+                let val;
+                if (Number.isInteger(i.price))
+                    val = Math.round(i.price * i.quantity);
+                else
+                    val = Math.round(parseFloat(i.price) * i.quantity);
                 let ch = {
                     "name" : i.name,
-                    "value" : Math.round(i.price * i.quantity),
+                    "value" : val,
                     "hex" : c.color[index + 3] 
                 };
                 children.children.push(ch);

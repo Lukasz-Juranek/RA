@@ -35,7 +35,7 @@ var divStyle = {
 
 export default class App extends React.Component {
   state = {
-    View: "CATEGORY_VIEW",
+    View: "MAIN_VIEW",
   }
   
   componentWillMount()

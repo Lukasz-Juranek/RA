@@ -11,6 +11,7 @@ const LABEL_STYLE = {
   textAnchor: 'middle'
 };
 
+
 /**
  * Recursively work backwards from highlighted node to find path of valud nodes
  * @param {Object} node - the current node being considered
@@ -100,11 +101,10 @@ export default class WalletSunburst extends React.Component {
     const {clicked, data, finalValue, pathValue} = this.state;
     
     return (
-      <div className="App" >
+      <div className="sunburst" >
         {/* <div>{clicked ? 'click to unlock selection' : 'click to lock selection'}</div> */}
         <Sunburst
           animation
-          className="basic-sunburst-example"
           hideRootNode
           onValueMouseOver={node => {
             // if (clicked) {

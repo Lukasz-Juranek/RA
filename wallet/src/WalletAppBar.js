@@ -14,6 +14,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import store from './store';
+import {category_names_array} from './store';
 
 function render_select (_this) {
   var rows = [];
@@ -38,15 +39,15 @@ export default class WalletAppBar extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        select_value: 0,
-        search_val: ""
+        select_value: 0,        
       };
     }
   
   componentWillMount(){
     backup_data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store.getState().wallet));
     this.unsubscribe = store.subscribe(() => {
-      this.setState({search_val: store.getState().active_category});
+      let cat_index = category_names_array().indexOf(store.getState().active_category);
+      this.setState({select_value: cat_index});
       backup_data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store.getState().wallet));
     }).bind(this);
   }

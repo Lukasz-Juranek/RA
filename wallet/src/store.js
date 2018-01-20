@@ -2,7 +2,7 @@ import {walletDB} from './walletDB'
 import { combineReducers ,createStore } from 'redux';
 import { purple50 } from './color_array';
 
-const view_reducer = (state = 'CATEGORY_VIEW', action) => {
+const view_reducer = (state = 'MAIN_VIEW', action) => {
     switch (action.type) {
         case 'SET_VIEW':
           return action.payload;
@@ -74,7 +74,10 @@ const wallet_reducer = (state = walletDB, action) => {
       } else 
       {
         item_find.price = action.payload.price;
-        item_find.quantity = item_find.quantity + parseInt(action.payload.quantity);
+        if (Number.isInteger(item_find.quantity))
+          item_find.quantity = (item_find.quantity) + parseInt(action.payload.quantity);
+        else
+          item_find.quantity = parseInt(item_find.quantity) + parseInt(action.payload.quantity);
       }
  
        
@@ -93,8 +96,12 @@ const wallet_reducer = (state = walletDB, action) => {
         if (item_find_r != false)
         {
           item_find_r.price = action.payload.price;
-          item_find_r.quantity = item_find_r.quantity - parseInt(action.payload.quantity);
-          if (item_find_r.quantity <= 0)
+          if (Number.isInteger(item_find_r.quantity))
+            item_find_r.quantity = (item_find_r.quantity) - parseInt(action.payload.quantity);
+          else
+            item_find_r.quantity = parseInt(item_find_r.quantity) - parseInt(action.payload.quantity);
+ 
+                    if (item_find_r.quantity <= 0)
           {
             let index = item.indexOf(item_find_r);
             item.splice(index,1);
@@ -158,6 +165,15 @@ let store = createStore(reducers,persistedState,
 export function category_names_array ()
 {
   let d = store.getState().wallet.category.map((i)=>
+  {
+    return i.name;
+  });
+  return d;
+}
+
+export function items_names_array ()
+{
+  let d = store.getState().wallet.item.map((i)=>
   {
     return i.name;
   });
