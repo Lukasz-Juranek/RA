@@ -26,8 +26,10 @@ export function mapToD3FlareDate()
                     "hex" : c.color[index + 3] 
                 };
                 children.children.push(ch);
+                return true;
         });
         d3_data.children.push(children);
+        return true;
     });
     
     return d3_data;
@@ -40,6 +42,7 @@ export function mapToGetCategoryColor()
 
     walletDB.category.map((c)=>{
         c_col.push(c.color[7]);
+        return true;
     });
     return c_col;
 }
@@ -51,6 +54,7 @@ export function mapToGetCategoryName()
 
     walletDB.category.map((c)=>{
         c_col.push(c.name);
+        return true;
     });
     return c_col;
 }

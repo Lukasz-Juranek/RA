@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Sunburst} from 'react-vis';
 import {EXTENDED_DISCRETE_COLOR_RANGE} from 'react-vis/dist/theme'
 import {LabelSeries} from 'react-vis';
-import D3FlareData from './d3-flare-example.json';
 import {mapToD3FlareDate} from './map_store'
 import store from './store'
 
@@ -22,7 +21,7 @@ function getKeyPath(node) {
     return ['wallet'];
   }
 
-  return [node.data && node.data.name || node.name].concat(getKeyPath(node.parent));
+  return [(node.data && node.data.name) || node.name].concat(getKeyPath(node.parent));
 }
 
 function getValue(node)
@@ -80,6 +79,12 @@ export default class WalletSunburst extends React.Component {
     clicked_item: false
   }
 
+  updateDimensions (){
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    this.setState({width: w, height: h});
+  }
+
   componentWillMount()
   {
     decoratedData = updateData(mapToD3FlareDate(), false);
@@ -88,14 +93,18 @@ export default class WalletSunburst extends React.Component {
       decoratedData = updateData(mapToD3FlareDate(), false);
       this.forceUpdate();
     }).bind(this);
+    window.addEventListener("resize", this.updateDimensions.bind(this));
   }
 
   componentWillUnmount()
   {
     this.unsubscribe();
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
   }
  
-
+  
+  
+  
   
   render() {
     const {clicked, data, finalValue, pathValue} = this.state;

@@ -1,8 +1,6 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import ItemSelect from './ItemSelect';
 import DatePicker from 'material-ui/DatePicker';
 import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
@@ -38,12 +36,6 @@ export default class AddItemDialog extends React.Component {
       open: false,
       maxDate: maxDate,
     };
-
-    const tf_style = {
-      marginLeft: 20,
-      display: 'inline-block'
-    };
-   
   }
 
   componentWillMount()

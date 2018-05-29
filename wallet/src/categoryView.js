@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import store from './store';
 
 import FlatButton from 'material-ui/FlatButton';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card} from 'material-ui/Card';
 
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
@@ -52,13 +52,12 @@ function sellClickHandle() {
 
 
 function DisplayView(disp_cat) {
-    let rows = [];
     let filtered_cats = store.getState().wallet.item
     .filter((i) => {return i.category.includes(disp_cat)});
-    if (filtered_cats.length == 0) filtered_cats =  store.getState().wallet.item;
-    filtered_cats.map ((i) => {
-      rows.push(
-        <Card style={card_style}>                 
+    if (filtered_cats.length === 0) filtered_cats =  store.getState().wallet.item;
+    let rows = filtered_cats.map ((i,i_index) => {
+      return (
+        <Card style={card_style} key={i_index}>                 
           <ReactGridLayout className="layout" layout={layout} cols={6} rowHeight={30} rows={3} width={window.innerWidth > tail_width ? tail_width : window.innerWidth}>
             <div key="a">{i.name} </div>
             <div key="b">{i.quantity} szt</div>

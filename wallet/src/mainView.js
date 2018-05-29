@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import store from './store';
+import React from 'react';
 import AddItemDialog from './addItemDialog';
 
 import WalletSunburst from './WalletSunburst';

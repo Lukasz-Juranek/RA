@@ -7,12 +7,12 @@ export default class WalletSunbursLegend extends Component {
     hoveredItem: false
   };
   render() {
-    const {hoveredItem} = this.state;
+    // const {hoveredItem} = this.state;
     return (
       <DiscreteColorLegend
         colors={mapToGetCategoryColor()}
-        onItemMouseEnter={i => this.setState({hoveredItem: i})}
-        onItemMouseLeave={() => this.setState({hoveredItem: false})}
+        // onItemMouseEnter={i => this.setState({hoveredItem: i})}
+        // onItemMouseLeave={() => this.setState({hoveredItem: false})}
         orientation="horizontal"
         width={window.innerWidth * 0.70}
         items={mapToGetCategoryName().map((item, key) =>

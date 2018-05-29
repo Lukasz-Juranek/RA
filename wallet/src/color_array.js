@@ -30,7 +30,7 @@ export const purple50 = ['#f3e5f5'
 , '#d500f9'
 , '#aa00ff'];
 
-export const deepPurple50 = ['#ede7f6',
+export const deepPurple50 = ['#ede7f6'
 , '#d1c4e9'
 , '#b39ddb'
 , '#9575cd'

@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'react-vis/dist/style.css';
 import './App.css'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {connect} from "react-redux";
 import store from './store';
 
 import CategoryView from './categoryView';
@@ -17,14 +16,12 @@ function DisplayView(displayView) {
       return (
         <MainView></MainView>
     );
-    break;
     case ("CATEGORY_VIEW"):
       return (
           <CategoryView category={store.getState().active_category}></CategoryView>
-      );  
+    );  
     default : 
       return ;
-    break;
   }
 }
 
@@ -57,8 +54,10 @@ export default class App extends React.Component {
     return (
       <div style={divStyle} className="App">
         <MuiThemeProvider>
-          <WalletAppBar> </WalletAppBar>
-          {DisplayView(this.state.View)}
+          <div>
+            <WalletAppBar> </WalletAppBar>
+            {DisplayView(this.state.View)}
+          </div>
         </MuiThemeProvider>
       </div>
     );

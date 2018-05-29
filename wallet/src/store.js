@@ -23,7 +23,7 @@ function find_existing_cat(category, name)
   let cat_find = false;
   for (let i = 0; i < category.length; i++)
   {
-    if (category[i].name.trim() == name.trim())
+    if (category[i].name.trim() === name.trim())
       {
         cat_find = category[i];
       }
@@ -36,7 +36,7 @@ function find_existing_item(item, name)
   let item_find = false;
   for (let i = 0; i < item.length; i++)
   {
-    if (item[i].name.trim() == name.trim())
+    if (item[i].name.trim() === name.trim())
     {
       item_find = item[i];
       return item_find;
@@ -75,9 +75,9 @@ const wallet_reducer = (state = walletDB, action) => {
       {
         item_find.price = action.payload.price;
         if (Number.isInteger(item_find.quantity))
-          item_find.quantity = (item_find.quantity) + parseInt(action.payload.quantity);
+          item_find.quantity = (item_find.quantity) + parseInt(action.payload.quantity,10);
         else
-          item_find.quantity = parseInt(item_find.quantity) + parseInt(action.payload.quantity);
+          item_find.quantity = parseInt(item_find.quantity,10) + parseInt(action.payload.quantity,10);
       }
  
        
@@ -90,16 +90,16 @@ const wallet_reducer = (state = walletDB, action) => {
       return new_state;
     
     case 'SELL_ITEM':
-      if (find_existing_cat(category,action.payload.category_name) != false)
+      if (find_existing_cat(category,action.payload.category_name) !== false)
       {
         let item_find_r = find_existing_item(item,action.payload.item_name);
-        if (item_find_r != false)
+        if (item_find_r !== false)
         {
           item_find_r.price = action.payload.price;
           if (Number.isInteger(item_find_r.quantity))
-            item_find_r.quantity = (item_find_r.quantity) - parseInt(action.payload.quantity);
+            item_find_r.quantity = (item_find_r.quantity) - parseInt(action.payload.quantity,10);
           else
-            item_find_r.quantity = parseInt(item_find_r.quantity) - parseInt(action.payload.quantity);
+            item_find_r.quantity = parseInt(item_find_r.quantity,10) - parseInt(action.payload.quantity,10);
  
                     if (item_find_r.quantity <= 0)
           {
